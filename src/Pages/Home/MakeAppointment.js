@@ -4,7 +4,7 @@ import appointment from "../../assets/images/appointment.png";
 
 const MakeAppointment = () => {
   return (
-    <section className="flex items-center justify-center    " style={
+    <section className="flex    items-center justify-center my-12  container   " style={
               {background:`url(${appointment})`}}>
       <div className="flex-1  ">
         <img src={doctor} className="mt-[-120px]    " alt="" />
@@ -19,7 +19,7 @@ const MakeAppointment = () => {
           vero esse cumque temporibus rem minus alias pariatur exercitationem
           magnam amet omnis itaque.
         </p>
-        <button class="btn btn-primary mt-6 text-white font-bold bg-gradient-to-r from-green-400 to-blue-500  ">
+        <button class="btn btn-primary mt-6 mb-5 text-white font-bold bg-gradient-to-r from-green-400 to-blue-500  ">
             Get Started
           </button>
       </div>
