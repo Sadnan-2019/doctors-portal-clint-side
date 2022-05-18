@@ -8,7 +8,7 @@ const Banner = () => {
     <div class="hero min-h-screen ">
       <div class="hero-content flex-col lg:flex-row-reverse">
         <img src={chair} class="max-w-sm rounded-lg shadow-2xl" alt="" />
-        <div className="">
+        <div class="">
           <h1 class="text-5xl font-bold">Your New Smile Start Here!</h1>
           <p class="py-6">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda

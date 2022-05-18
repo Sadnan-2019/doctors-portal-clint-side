@@ -14,14 +14,11 @@ const Reviews = ({ review }) => {
               </div>
             </div>
           </div>
-          
-             
-              <div class="mr-5 ">
-                <h2>{review.name}</h2>
-                <p>{review.location}</p>
-              </div>
-           
-          
+
+          <div class="mr-5 ">
+            <h2>{review.name}</h2>
+            <p>{review.location}</p>
+          </div>
         </div>
       </div>
     </div>
