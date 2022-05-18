@@ -3,7 +3,7 @@ const InfoCard = ({ img, cardTitle, Bclass }) => {
   return (
     <div>
       <div class={`card lg:card-side   shadow-xl ${Bclass}`}>
-        <figure class="pl-4">
+        <figure class="pl-4 pt-5">
           <img src={img}  alt="Album" />
         </figure>
         <div class="card-body">

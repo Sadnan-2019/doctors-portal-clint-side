@@ -8,7 +8,7 @@ const Navber = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="">Appoinment</Link>
+        <Link to="/appoinment">Appoinment</Link>
       </li>
 
       <li>
@@ -70,7 +70,7 @@ const Navber = () => {
             </li>
           </ul>
         </div>
-        <a class="btn btn-ghost normal-case text-xl">DoctorsUI</a>
+        <a class="btn btn-ghost normal-case text-xl">WOW CLINIC</a>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal p-0">{liItems}</ul>
