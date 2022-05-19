@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css"
 
 const Navber = () => {
   const liItems = (
@@ -24,7 +25,7 @@ const Navber = () => {
     </>
   );
   return (
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-100 ">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -65,9 +66,7 @@ const Navber = () => {
             <li><a>Submenu 2</a></li>
           </ul>
         </li> */}
-            <li>
-              <a>Item 3</a>
-            </li>
+            
           </ul>
         </div>
         <a class="btn btn-ghost normal-case text-xl">WOW CLINIC</a>
