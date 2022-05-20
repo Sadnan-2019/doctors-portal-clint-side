@@ -1,8 +1,17 @@
+import { signOut } from "firebase/auth";
 import React from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.css"
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../../firebase.init";
+import "./Navbar.css";
 
 const Navber = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+    navigate("/login")
+  };
+  const navigate= useNavigate()
   const liItems = (
     <>
       <li>
@@ -20,7 +29,9 @@ const Navber = () => {
       </li>
 
       <li>
-        <Link to="/login">Login</Link>
+        
+        
+      {user? <button class="btn  btn-primary"  onClick={logout}>SignOut</button> :<Link to="/login">Login</Link>}
       </li>
     </>
   );
@@ -48,25 +59,7 @@ const Navber = () => {
             tabindex="0"
             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {/* <li><a>Home </a></li>
-        <li><a>About</a></li>
-        <li><a>Appoinment</a></li>
-        <li><a>Reviwes</a></li>
-        <li><a>Contactus</a></li>
-        <li><a>Login</a></li> */}
-
             {liItems}
-            {/* <li tabindex="0">
-          <a class="justify-between">
-            Parent
-            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-          </a>
-          <ul class="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li> */}
-            
           </ul>
         </div>
         <a class="btn btn-ghost normal-case text-xl">WOW CLINIC</a>

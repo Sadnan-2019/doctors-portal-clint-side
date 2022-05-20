@@ -1,65 +1,87 @@
+import { async } from "@firebase/util";
 import React from "react";
-// import auth from "../../firebase.init";
-// import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-
 import {
   useSignInWithGoogle,
-  useSignInWithEmailAndPassword,
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
-const Login = () => {
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+const SignUp = () => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleUserloading, googleUsererror] =
     useSignInWithGoogle(auth);
+
+  const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+  const navigate =useNavigate()
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const navigate =useNavigate()
   let signInrror;
- 
-  const location =useLocation();
-  const from = location.state?.from?.pathname || "/";
-  if (googleUser || user) {
-    // console.log(user);
-    navigate(from, { replace: true });
-
+  if (googleUser) {
+    console.log(user);
   }
 
-  if (loading || googleUserloading) {
+  if (loading || googleUserloading || updating) {
     return <Loading></Loading>;
   }
 
-  if (error || googleUsererror) {
+  if (error || googleUsererror || updatingError) {
     signInrror = (
       <p className="text-red-500 ">
-        {error.message || googleUsererror.message}
+        {error.message || googleUsererror.message || updatingError.message}
       </p>
     );
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
 
-    signInWithEmailAndPassword(data.email, data.password);
-    // navigate("/appoinment")
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
+    console.log("update done");
+    navigate("/appoinment")
   };
 
   return (
     <div className="flex h-screen justify-center items-center">
       <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
-          <h2 class="card-title">Login</h2>
+          <h2 class="card-title">SignUp</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Name</span>
+              </label>
+              <input
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Please file the name field",
+                  },
+                })}
+                type="text"
+                placeholder="your name"
+                class="input input-bordered w-full max-w-xs"
+              />
+              <label class="label">
+                {errors.name?.type === "required" && (
+                  <span class="label-text-alt text-red-600">
+                    {errors.name.message}
+                  </span>
+                )}
+              </label>
+            </div>
+
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Email</span>
@@ -129,14 +151,14 @@ const Login = () => {
             <input
               type="submit"
               className="btn w-full max-w-xs  btn-secondary"
-              value="Login"
+              value="SignUp"
             />
           </form>
           <p>
             <small className="text-primary">
-              New to WOW CLINIC?{" "}
-              <Link className="btn btn-link text-primary" to="/signup">
-                Create New Account
+              Already Account?{" "}
+              <Link className="btn btn-link text-primary" to="/login">
+                Login
               </Link>
             </small>
           </p>
@@ -154,4 +176,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
