@@ -29,7 +29,7 @@ const Footer = () => {
 
       <div>
         <p class="footer footer-center p-4  text-white  ">
-          Copyright © 2022 - All right reserved by ACME Industries Ltd
+          Copyright © 2022 - All right reserved by WOW CLINIC 
         </p>
       </div>
     </footer>

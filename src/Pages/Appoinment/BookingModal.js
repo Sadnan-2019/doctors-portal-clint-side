@@ -2,23 +2,60 @@ import React from "react";
 import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { indexedDBLocalPersistence } from "firebase/auth";
+import { toast } from "react-toastify";
 
-const BookingModal = ({ date, treatment,setTreatment }) => {
-
+const BookingModal = ({ date, treatment, setTreatment,refetch }) => {
   // console.log(treatment)
-  const { _id,name, slots } = treatment;
+  const { _id, name, slots } = treatment;
   const [user, loading, error] = useAuthState(auth);
-  console.log(user)
+  const formatedDate = format(date, "PP");
+  console.log(user);
+
+  const handleBookService = (event) => {
+    event.preventDefault();
+    const slot = event.target.slot.value;
+    // console.log(_id, slot, name);
+    const booking = {
+      treatmentId: _id,
+      treatment: name,
+      date: formatedDate,
+      slot,
+      patientsName:user.displayName,
+      patientsEmail:user.email,
+      phone:event.target.phone.value
+    
+    };
+
+    fetch(`http://localhost:5000/booking`,{
+
+    method:"POST",
+    headers:{
+      "content-type" : "application/json"
+    },
+    body:JSON.stringify(booking)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+
+      if(data.success){
+        toast(`Appoinment done ${formatedDate} at ${slot}`)
+      }else{
+        toast.error(`Already Appoinment done ${data.booking?.date} at ${data.booking?.slot}`)
+
+      }
+      refetch();
+      setTreatment(null);
+    })
 
 
- const  handleBookService =(event)=>{
-           event.preventDefault();
-           const slot=event.target.slot.value;
-           console.log(_id,slot,name)
-           setTreatment(null)
 
-          // console.log("here")
- }
+
+    
+
+    // console.log(booking)
+  };
   return (
     <div>
       <input type="checkbox" id="booking-modal" class="modal-toggle " />
@@ -28,7 +65,10 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
             Booking for: {name}
           </h3>
 
-          <form onSubmit={handleBookService} className="grid grid-cols-1 gap-4 justify-items-center  ">
+          <form
+            onSubmit={handleBookService}
+            className="grid grid-cols-1 gap-4 justify-items-center  "
+          >
             <input
               type="text"
               value={format(date, "PP")}
@@ -37,18 +77,23 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
               disabled
             />
             <select name="slot" class="select select-success w-full max-w-xs">
-              
-               {slots.map(slot=><option value={slot}>{slot}</option>)}
+              {slots.map((slot, index) => (
+                <option value={slot} key={index}>
+                  {slot}
+                </option>
+              ))}
             </select>
             <input
               type="text"
-              value={user?.displayName}
+              value={user?.displayName || ""}
               name="name"
+              readOnly
               class="input input-bordered input-success w-full max-w-xs"
             />
             <input
-              type="email     "
-              value={user?.email}
+              type="email"
+              value={user?.email || ""}
+              readOnly
               name="email"
               class="input input-bordered input-success w-full max-w-xs"
             />

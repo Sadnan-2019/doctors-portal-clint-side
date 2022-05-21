@@ -53,14 +53,14 @@ const SignUp = () => {
 
   return (
     <div className="flex h-screen justify-center items-center">
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title">SignUp</h2>
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">SignUp</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Name</span>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Name</span>
               </label>
               <input
                 {...register("name", {
@@ -71,20 +71,20 @@ const SignUp = () => {
                 })}
                 type="text"
                 placeholder="your name"
-                class="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs"
               />
-              <label class="label">
+              <label className="label">
                 {errors.name?.type === "required" && (
-                  <span class="label-text-alt text-red-600">
+                  <span className="label-text-alt text-red-600">
                     {errors.name.message}
                   </span>
                 )}
               </label>
             </div>
 
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Email</span>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Email</span>
               </label>
               <input
                 {...register("email", {
@@ -99,24 +99,24 @@ const SignUp = () => {
                 })}
                 type="email"
                 placeholder="your email"
-                class="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs"
               />
-              <label class="label">
+              <label className="label">
                 {errors.email?.type === "required" && (
-                  <span class="label-text-alt text-red-600">
+                  <span className="label-text-alt text-red-600">
                     {errors.email.message}
                   </span>
                 )}
                 {errors.email?.type === "pattern" && (
-                  <span class="label-text-alt text-red-600">
+                  <span className="label-text-alt text-red-600">
                     {errors.email.message}
                   </span>
                 )}
               </label>
             </div>
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Paasword</span>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Paasword</span>
               </label>
               <input
                 {...register("password", {
@@ -131,16 +131,16 @@ const SignUp = () => {
                 })}
                 type="password"
                 placeholder="your password"
-                class="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs"
               />
-              <label class="label">
+              <label className="label">
                 {errors.password?.type === "required" && (
-                  <span class="label-text-alt text-red-600">
+                  <span className="label-text-alt text-red-600">
                     {errors.password.message}
                   </span>
                 )}
                 {errors.password?.type === "minLength" && (
-                  <span class="label-text-alt text-red-600">
+                  <span className="label-text-alt text-red-600">
                     {errors.password.message}
                   </span>
                 )}
@@ -163,10 +163,10 @@ const SignUp = () => {
             </small>
           </p>
 
-          <div class="divider">OR</div>
+          <div className="divider">OR</div>
           <button
             onClick={() => signInWithGoogle()}
-            class="btn btn-outline btn-accent"
+            className="btn btn-outline btn-accent"
           >
             Continue with Google
           </button>
