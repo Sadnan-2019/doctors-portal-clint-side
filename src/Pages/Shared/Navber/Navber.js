@@ -9,9 +9,9 @@ const Navber = () => {
   const [user, loading, error] = useAuthState(auth);
   const logout = () => {
     signOut(auth);
-    navigate("/login")
+    navigate("/login");
   };
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const liItems = (
     <>
       <li>
@@ -27,12 +27,21 @@ const Navber = () => {
       <li>
         <Link to="/about">About</Link>
       </li>
-
-      <li>
-        
-        
-      {user? <button className="btn  btn-primary"  onClick={logout}>SignOut</button> :<Link to="/login">Login</Link>}
+      {
+        user &&  <li>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
+      }
+      <li>
+        {user ? (
+          <button className="btn  btn-primary" onClick={logout}>
+            SignOut
+          </button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
+      </li>
+      
     </>
   );
   return (
