@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import auth from "../../firebase.init";
+import useToken from "../../hooks/useToken";
 import Loading from "../Shared/Loading";
 
 const Login = () => {
@@ -23,6 +24,8 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  const [token] = useToken(googleUser || user)
+
   const navigate =useNavigate()
   let signInrror;
  
@@ -30,12 +33,12 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
   useEffect(()=>{
 
-    if (googleUser || user) {
+    if (token) {
       // console.log(user);
       navigate(from, { replace: true });
   
     }
-  },[googleUser,user,from,navigate])
+  },[token,from,navigate])
 
   if (loading || googleUserloading) {
     return <Loading></Loading>;

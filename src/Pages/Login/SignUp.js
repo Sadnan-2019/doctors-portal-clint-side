@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import auth from "../../firebase.init";
+import useToken from "../../hooks/useToken";
 import Loading from "../Shared/Loading";
 
 const SignUp = () => {
@@ -18,6 +19,9 @@ const SignUp = () => {
     useSignInWithGoogle(auth);
 
   const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+
+  const [token] = useToken (googleUser || user)
+
   const navigate =useNavigate()
 
   const {
@@ -26,8 +30,10 @@ const SignUp = () => {
     handleSubmit,
   } = useForm();
   let signInrror;
-  if (googleUser) {
+  if (token) {
     console.log(user);
+    navigate("/appoinment")
+
   }
 
   if (loading || googleUserloading || updating) {
@@ -48,7 +54,6 @@ const SignUp = () => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
     console.log("update done");
-    navigate("/appoinment")
   };
 
   return (
