@@ -7,32 +7,33 @@ import auth from "../../firebase.init";
 const MyAppoinment = () => {
   const [appoinment, setAppoinment] = useState([]);
   const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let i = 1;
 
   useEffect(() => {
     if (user) {
       console.log(user.email);
-      fetch(`http://localhost:5000/booking?patientsEmail=${user.email}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://secure-thicket-56846.herokuapp.com/booking?patientsEmail=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
-                console.log("res", res) 
+          console.log("res", res);
 
-                if(res.status === 401 || res.status === 403){
-
-                        signOut(auth);
-                        localStorage.removeItem("accessToken");
-                        navigate("/")
-
-                }
-               return res.json()
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("accessToken");
+            navigate("/");
+          }
+          return res.json();
         })
         .then((data) => {
-                setAppoinment(data)
+          setAppoinment(data);
         });
     }
   }, [user]);
@@ -40,7 +41,9 @@ const MyAppoinment = () => {
     <div>
       {/* <h4>my appoinment:{appoinment.length}</h4> */}
       <div class="overflow-x-auto">
-        <h3 className="text-2xl text-center text-secondary mb-4">Appoinment List</h3>
+        <h3 className="text-2xl text-center text-secondary mb-4">
+          Appoinment List
+        </h3>
         <table class="table w-full">
           <thead>
             <tr>

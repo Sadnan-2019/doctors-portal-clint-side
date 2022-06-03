@@ -5,7 +5,7 @@ import auth from "../../firebase.init";
 import { indexedDBLocalPersistence } from "firebase/auth";
 import { toast } from "react-toastify";
 
-const BookingModal = ({ date, treatment, setTreatment,refetch }) => {
+const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
   // console.log(treatment)
   const { _id, name, slots } = treatment;
   const [user, loading, error] = useAuthState(auth);
@@ -21,38 +21,32 @@ const BookingModal = ({ date, treatment, setTreatment,refetch }) => {
       treatment: name,
       date: formatedDate,
       slot,
-      patientsName:user.displayName,
-      patientsEmail:user.email,
-      phone:event.target.phone.value
-    
+      patientsName: user.displayName,
+      patientsEmail: user.email,
+      phone: event.target.phone.value,
     };
 
-    fetch(`http://localhost:5000/booking`,{
-
-    method:"POST",
-    headers:{
-      "content-type" : "application/json"
-    },
-    body:JSON.stringify(booking)
+    fetch(`https://secure-thicket-56846.herokuapp.com/booking`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
     })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log(data)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
 
-      if(data.success){
-        toast(`Appoinment done ${formatedDate} at ${slot}`)
-      }else{
-        toast.error(`Already Appoinment done ${data.booking?.date} at ${data.booking?.slot}`)
-
-      }
-      refetch();
-      setTreatment(null);
-    })
-
-
-
-
-    
+        if (data.success) {
+          toast(`Appoinment done ${formatedDate} at ${slot}`);
+        } else {
+          toast.error(
+            `Already Appoinment done ${data.booking?.date} at ${data.booking?.slot}`
+          );
+        }
+        refetch();
+        setTreatment(null);
+      });
 
     // console.log(booking)
   };
