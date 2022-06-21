@@ -23,8 +23,15 @@ const DashBoard = () => {
                        
                         <li className='mb-2'><Link to="/dashboard">My Appoinment</Link></li>
                         <li><Link to="/dashboard/review">My review</Link></li>
-                        {admin && <li><Link to="/dashboard/users">All Users</Link></li>}
-                        {/* <li><a>Sidebar Item 2</a></li> */}
+                        {admin && <>
+                        
+                          <li><Link to="/dashboard/users">All Users</Link></li>
+                          <li><Link to="/dashboard/addDoctor">Add a Doctor</Link></li>
+                        
+                        
+                        </>
+                        }
+                       
                       </ul>
                     
                     </div>
