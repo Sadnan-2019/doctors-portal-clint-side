@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import Loading from "../Shared/Loading";
 
 const AddDoctor = () => {
@@ -39,15 +40,25 @@ const AddDoctor = () => {
           email:data.email,
           speciality:data.speciality,
           photo:img
-          
-
-
-
         }
-        console.log("doctor ",doctor)
+        // console.log("doctor ",doctor)
+        fetch("http://localhost:5000/doctors",{
+          method: "POST",
+          headers: {
+            "content-type" : "application/json",
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+
+          },
+          body: JSON.stringify(doctor)
+        })
+        .then(res => res.json())
+        .then((adding )=>{
+          // console.log("inserted", adding)
+          toast("add doctor success")
+        })
       }
 
-      console.log("immbbb ",result)
+      // console.log("immbbb ",result)
       
     })
     
