@@ -4,6 +4,7 @@ import whitening from "../../assets/images/whitening.png";
 import cavity from "../../assets/images/cavity.png";
 import Service from "./Service";
 
+
 const Services = () => {
   const services = [
     {

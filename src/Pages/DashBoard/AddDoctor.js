@@ -15,12 +15,47 @@ const AddDoctor = () => {
     fetch(`http://localhost:5000/service`).then((res) => res.json())
   );
 
+    const imgStorageKey = "c596244b69c1daddcb4b6332563f0f2c"; 
   if (isLoading) {
     return <Loading></Loading>;
   }
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async data => {
+    const image = data.photo[0];
+    const formData = new FormData();
+    formData.append('image', image);
+    const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+    fetch(url,{
+      method: 'POST',
+      body: formData
+
+    })
+    .then(res => res.json())
+    .then(result =>{
+      if(result.success){
+        const img= result.data.url;
+        const doctor={
+          name: data.name,
+          email:data.email,
+          speciality:data.speciality,
+          photo:img
+          
+
+
+
+        }
+        console.log("doctor ",doctor)
+      }
+
+      console.log("immbbb ",result)
+      
+    })
+    
+
+
+
+    // console.log(data.photo[0]);
+    // console.log(image);
 
     // navigate("/appoinment")
   };
@@ -31,7 +66,7 @@ const AddDoctor = () => {
       <div className="flex h-screen  ">
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
-            <h2 className="card-title">Login</h2>
+           
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="form-control w-full max-w-xs">
@@ -98,7 +133,7 @@ const AddDoctor = () => {
                 </label>
 
                 <select
-                  class="select w-full max-w-xs"
+                  class="select w-full input-bordered max-w-xs"
                   {...register("speciality")}
                 >
                   {services.map(service=>
@@ -109,6 +144,31 @@ const AddDoctor = () => {
                     
                     >{service.name}</option>)}
                 </select>
+              </div>
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Photo</span>
+                </label>
+                <input
+                  {...register("photo", {
+                    required: {
+                      value: true,
+                      message: "Please file the photo field",
+                    },
+                   
+                  })}
+                  type="file"
+                   
+                  className="input input-bordered w-full max-w-xs"
+                />
+                <label className="label">
+                  {errors.photo?.type === "required" && (
+                    <span className="label-text-alt text-red-600">
+                      {errors.photo.message}
+                    </span>
+                  )}
+                 
+                </label>
               </div>
 
               <input
