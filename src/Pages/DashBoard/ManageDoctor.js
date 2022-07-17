@@ -1,48 +1,39 @@
 import React from "react";
-import { useWatch } from "react-hook-form";
 import { useQuery } from "react-query";
 import Loading from "../Shared/Loading";
-import UserRow from "./UserRow";
+import DoctorRow from "./DoctorRow";
 
-const AllUsers = () => {
-   
-  const {
-    data: users,
-    isLoading,
-    refetch,
-  } = useQuery("users", () =>
-    fetch("https://secure-thicket-56846.herokuapp.com/user", {
+const ManageDoctor = () => {
+  const { data: doctors, isLoading } = useQuery("doctors", () =>
+    fetch("http://localhost:5000/doctor", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     }).then((res) => res.json())
   );
+
   if (isLoading) {
     return <Loading></Loading>;
   }
-
   return (
     <div>
-      <h3>All users :{users.length}</h3>
-
+      <p>manage dotor{doctors.length}</p>
       <div class="overflow-x-auto">
         <table class="table w-full">
           <thead>
             <tr>
-              <th></th>
+              <th>Serial No</th>
+              <th>Name</th>
               <th>Email</th>
-              <th className="text-center">Action</th>
+              <th> Speciality</th>
+              <th> Photo</th>
+              <th> Action</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, i) => (
-              <UserRow
-                key={user._id}
-                user={user}
-                i={i}
-                refetch={refetch}
-              ></UserRow>
+            {doctors.map((doctor, i) => (
+              <DoctorRow key={doctor._id} doctor={doctor} i={i}></DoctorRow>
             ))}
           </tbody>
         </table>
@@ -51,4 +42,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default ManageDoctor;

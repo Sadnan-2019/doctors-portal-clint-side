@@ -50,17 +50,21 @@ const AddDoctor = () => {
 
           },
           body: JSON.stringify(doctor)
+          
         })
+        
         .then(res => res.json())
         .then((adding )=>{
           // console.log("inserted", adding)
-          toast("add doctor success")
+          toast.success("add doctor success")
         })
       }
+      
 
       // console.log("immbbb ",result)
       
     })
+    
     
 
 
