@@ -4,7 +4,7 @@ import Loading from "../Shared/Loading";
 import DoctorRow from "./DoctorRow";
 
 const ManageDoctor = () => {
-  const { data: doctors, isLoading } = useQuery("doctors", () =>
+  const { data: doctors, isLoading,refetch } = useQuery("doctors", () =>
     fetch("http://localhost:5000/doctor", {
       method: "GET",
       headers: {
@@ -33,7 +33,7 @@ const ManageDoctor = () => {
           </thead>
           <tbody>
             {doctors.map((doctor, i) => (
-              <DoctorRow key={doctor._id} doctor={doctor} i={i}></DoctorRow>
+              <DoctorRow key={doctor._id} doctor={doctor} i={i} refetch ={refetch}></DoctorRow>
             ))}
           </tbody>
         </table>

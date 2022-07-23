@@ -1,8 +1,25 @@
 import React from 'react';
 
-const DoctorRow = ({doctor,i}) => {
+const DoctorRow = ({doctor,i,refetch}) => {
 
      const {name,email,speciality,photo} = doctor;
+
+     const handleDelete = (email) => {
+
+      fetch(`http://localhost:5000/doctor/${email}`,{
+
+      method : "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+
+
+     }
+
+
      return (
           
                 <tr>
@@ -19,7 +36,7 @@ const DoctorRow = ({doctor,i}) => {
 </div></td>
         
         <td>
-        <button class="btn btn-xs">Delete Doctor</button>
+        <button class="btn btn-xs" onClick={ ()=> handleDelete(email)}>Delete Doctor</button>
       </td>
       </tr>
                
