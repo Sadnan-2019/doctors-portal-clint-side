@@ -7,9 +7,7 @@ const ManageDoctor = () => {
   const { data: doctors, isLoading,refetch } = useQuery("doctors", () =>
     fetch("http://localhost:5000/doctor", {
       method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
+    
     }).then((res) => res.json())
   );
 

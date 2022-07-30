@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const DoctorRow = ({doctor,i,refetch}) => {
 
@@ -14,7 +15,12 @@ const DoctorRow = ({doctor,i,refetch}) => {
       },
       })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data =>{
+        if(data.deletedCount){
+          toast.success(`Doctor :${name} is deleted `)
+          refetch()
+        }
+      })
 
 
      }
