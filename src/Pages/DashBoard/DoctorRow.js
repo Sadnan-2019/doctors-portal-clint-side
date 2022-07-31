@@ -1,53 +1,39 @@
-import React from 'react';
-import { toast } from 'react-toastify';
+import React from "react";
+import { toast } from "react-toastify";
 
-const DoctorRow = ({doctor,i,refetch}) => {
+const DoctorRow = ({ doctor, i, refetch, setDeletingDoctor }) => {
+  const { name, email, speciality, photo } = doctor;
 
-     const {name,email,speciality,photo} = doctor;
+  
 
-     const handleDelete = (email) => {
+  return (
+    <tr>
+      <th>{i + 1}</th>
 
-      fetch(`http://localhost:5000/doctor/${email}`,{
-
-      method : "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      })
-      .then(res => res.json())
-      .then(data =>{
-        if(data.deletedCount){
-          toast.success(`Doctor :${name} is deleted `)
-          refetch()
-        }
-      })
-
-
-     }
-
-
-     return (
-          
-                <tr>
-        <th>{i + 1}</th>
-      
-        <td>{name}</td>
-        <td>{email}</td>
-        <td>{speciality}</td>
-        <td><div class="avatar">
-  <div class="w-20 rounded">
-    <img src={photo
-}alt={name} />
-  </div>
-</div></td>
-        
-        <td>
-        <button class="btn btn-xs" onClick={ ()=> handleDelete(email)}>Delete Doctor</button>
+      <td>{name}</td>
+      <td>{email}</td>
+      <td>{speciality}</td>
+      <td>
+        <div class="avatar">
+          <div class="w-20 rounded">
+            <img src={photo} alt={name} />
+          </div>
+        </div>
       </td>
-      </tr>
-               
+
+      <td>
+        <label
+          onClick={() => setDeletingDoctor(doctor)}
+          for="delete-confirm-doctor"
+          class="btn btn-xs btn-error"
+        >
+          Delete
+        </label>
+
         
-     );
+      </td>
+    </tr>
+  );
 };
 
 export default DoctorRow;
