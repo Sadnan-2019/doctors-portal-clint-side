@@ -19,7 +19,7 @@ const [Carderror, setCarderror] = useState("")
 
           const card = elements.getElement(CardElement);
 
-               if(card){
+               if(card === null){
 
                          return;
                }
@@ -29,7 +29,9 @@ const [Carderror, setCarderror] = useState("")
                   });
                   
                   if(error){
-                    console.log(error,"kskskkss")
+                    // console.log(error,"kskskkss")
+                    setCarderror(error.message)
+                    // setCarderror(error?.message ||  "") ternary
                   }
           else{
                setCarderror("")
