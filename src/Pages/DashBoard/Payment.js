@@ -5,6 +5,7 @@ import Loading from "../Shared/Loading";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import { da } from "date-fns/locale";
 
 const stripePromise = loadStripe('pk_test_51LRCK3IYd4v9xQ61TM6JP87C5yP7HRBOoD6uTYCRyi4grRtm0nXAeUaiuN2bldHB5jlJR4C7oDCG82Q8vgRdBUEZ00SCLwR1eY');
 
@@ -20,6 +21,8 @@ const Payment = () => {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     }).then((res) => res.json())
+    // .then(data =>console.log(appoinment))
+    
   );
   if(isLoading){
      return <Loading></Loading>
