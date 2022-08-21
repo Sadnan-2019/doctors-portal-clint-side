@@ -11,10 +11,10 @@ const CheckoutForm = ({ appoinment }) => {
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setclientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
-  const { price, patientsName, patientsEmail } = appoinment;
+  const {_id, price, patientsName, patientsEmail } = appoinment;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/create-payment-intent`, {
+    fetch(`https://secure-thicket-56846.herokuapp.com/create-payment-intent`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -78,8 +78,22 @@ const CheckoutForm = ({ appoinment }) => {
       console.log(paymentIntent);
       setTransactionId(paymentIntent.id);
       setSuccess("congrats payment is process");
+      const  payment ={
+        appoinment: _id,
+        transactionId :paymentIntent.id
 
-      fetch("")
+      }
+      fetch(`https://secure-thicket-56846.herokuapp.com/booking/${_id}`,{
+        method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(payment),
+
+
+
+      })
         .then((res) => res.json())
         .then((data) => {
           setProcessing(false);
