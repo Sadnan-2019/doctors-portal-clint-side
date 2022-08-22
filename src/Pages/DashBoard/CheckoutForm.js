@@ -123,7 +123,7 @@ const CheckoutForm = ({ appoinment }) => {
         <button
           className="btn btn-success btn-sm mt-4"
           type="submit"
-          disabled={!stripe || !clientSecret}
+          disabled={!stripe || !clientSecret || success}
         >
           Pay
         </button>
