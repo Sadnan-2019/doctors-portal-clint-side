@@ -64,11 +64,11 @@ const MyAppoinment = () => {
                 <td>{app.date}</td>
                 <td>{app.slot}</td>
                 <td>{(app.price && !app.paid) && <Link to = {`/dashboard/payment/${app._id}`}><button className="btn btn-dark">pay</button></Link>}</td>
-                <td>{(app.price && !app.paid) && <Link to = {`/dashboard/payment/${app._id}`}><button className="btn btn-dark">mobile banking pay</button></Link>}</td>
+                <td>{(app.price && !app.paid) && <Link to = {`/dashboard/mobile-payment/${app._id}`}><button className="btn btn-dark">mobile banking pay</button></Link>}</td>
                 <td>{(app.price && app.paid) &&  <div>
                   <span className="text-success">pay success</span>
                   <p className="text-success font-bold">TransactionId:{app.transactionId}</p>
-                  <a href="https://wa.me/<01767564737>" target="_blank">Link Text Here</a>
+                  {/* <a href="https://wa.me/<01767564737>" target="_blank">Link Text Here</a> */}
                    </div>}</td>
               </tr>
             ))}
