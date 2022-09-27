@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "../../Footer/Footer";
+import Luckey from "../Luckey/Luckey";
 import Banner from "./Banner";
 import ContactUs from "./ContactUs";
 import Info from "./Info";
@@ -18,7 +19,9 @@ const Home = () => {
         <Treatment></Treatment>
         <MakeAppointment></MakeAppointment>
         <Testimonial></Testimonial>
+   
         <ContactUs></ContactUs>
+        <Luckey></Luckey>
       </div>
       <div>
         <Footer></Footer>
