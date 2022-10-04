@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "../../Footer/Footer";
+import CardService from "../CardService/CardService";
 import Luckey from "../Luckey/Luckey";
 import Banner from "./Banner";
 import ContactUs from "./ContactUs";
@@ -21,7 +22,8 @@ const Home = () => {
         <Testimonial></Testimonial>
    
         <ContactUs></ContactUs>
-        <Luckey></Luckey>
+        {/* <Luckey></Luckey> */}
+        <CardService></CardService>
       </div>
       <div>
         <Footer></Footer>

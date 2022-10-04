@@ -48,7 +48,7 @@ const Luckey = () => {
 
 <div className=' '>
         <h2>Auto Play</h2>
-        <Slider {...settings}>
+        <Slider  {...settings} >
         <div class="card  bg-gradient-to-r from-green-400 to-blue-500 shadow-xl  text-white mb-5 mt-12   ">
         <div class="card-body">
           <h2 class="card-title">Card title!</h2>
