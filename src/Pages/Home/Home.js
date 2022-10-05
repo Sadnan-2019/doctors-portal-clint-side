@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../../Footer/Footer";
 import CardService from "../CardService/CardService";
 import Luckey from "../Luckey/Luckey";
+import Mymap from "../Mymap/Mymap";
 import Banner from "./Banner";
 import ContactUs from "./ContactUs";
 import Info from "./Info";
@@ -22,6 +23,7 @@ const Home = () => {
         <Testimonial></Testimonial>
    
         <ContactUs></ContactUs>
+        <Mymap></Mymap>
         {/* <Luckey></Luckey> */}
         <CardService></CardService>
       </div>
